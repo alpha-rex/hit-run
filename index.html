@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hollow Wardens 3D - a fast 3D action roguelite you play in the browser. Parry, dodge, pick boons and chase the high score.">
+<meta name="author" content="Rubaiyat">
+<meta name="theme-color" content="#120b24">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Hollow Wardens 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="menu">
+  <div class="brand"><img src="icon-192.png" width="56" height="56" alt=""><h1>Hollow Wardens 3D</h1></div>
+  <p class="mu">Fear gives birth to Hollows. Pick a Warden, survive the waves, grow stronger with every run.</p>
+  <p id="err" class="err" hidden>Could not load three.js. Check your internet connection and reload.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="seg" id="modes" role="group" aria-label="Game mode">
+    <button data-m="endless" aria-pressed="true">Endless</button>
+    <button data-m="story" aria-pressed="false">Story</button>
+  </div>
+  <p class="mu small" id="mdesc"></p>
+
+  <div class="seg" id="df" role="group" aria-label="Difficulty">
+    <button data-d="0.7" aria-pressed="false">Easy</button>
+    <button data-d="1" aria-pressed="true">Normal</button>
+    <button data-d="1.4" aria-pressed="false">Hard</button>
+  </div>
+
+  <p class="mu small">Music</p>
+  <div class="seg" id="mus" role="group" aria-label="Music">
+    <button data-s="calm" aria-pressed="true">Calm</button>
+    <button data-s="night" aria-pressed="false">Night</button>
+    <button data-s="off" aria-pressed="false">Off</button>
+  </div>
+
+  <details id="forge">
+    <summary>Soul Forge <span class="mu">- spend shards on permanent upgrades</span></summary>
+    <div id="fg"></div>
+    <button id="rst" class="lnk" type="button">Reset saved progress</button>
+  </details>
+
+  <h2>Choose your Warden</h2>
+  <div id="cards"></div>
+
+  <p class="mu small foot">Keyboard: WASD move, J attack, K skill, L guard, Space dodge, U realm, P pause. Touch: on-screen stick and buttons.</p>
+  <p class="mu small credit">Made by Rubaiyat</p>
+</main>
+
+<section id="game">
+  <canvas id="c"></canvas>
+
+  <div class="hud">
+    <div class="hb">
+      <b id="pn"></b>
+      <div class="bar hp"><i id="php"></i><em id="hpt"></em></div>
+      <div class="bar sp s"><i id="psp"></i></div>
+      <div class="bar ch s"><i id="pch"></i></div>
+    </div>
+    <div class="mid"><b id="wv"></b><span id="sc">0</span><small>&#9670; <span id="sh">0</span></small></div>
+    <div class="hb r">
+      <b id="en"></b>
+      <div class="bar hp"><i id="ehp"></i></div>
+    </div>
+  </div>
+
+  <div id="ebars"></div>
+  <div id="vig"></div>
+  <div id="bn"></div>
+  <div id="cmb"></div>
+  <div id="hint"></div>
+  <div id="fxl"></div>
+
+  <div class="top">
+    <button id="bp" aria-label="Pause">II</button>
+    <button id="bs" aria-label="Sound">&#9835;</button>
+  </div>
+  <div id="chips" aria-label="Active boons"></div>
+
+  <div id="js" aria-label="Move stick"><div id="jk"></div></div>
+  <div class="ab">
+    <button data-k="rm" id="brm">Realm</button>
+    <button data-k="sk">Skill</button>
+    <button data-k="dg">Dodge</button>
+    <button data-k="gd">Guard</button>
+    <button data-k="at" class="big">Attack</button>
+  </div>
+
+  <div id="bo"></div>
+  <div id="ov"></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="game.js"></script>
+<script>
+if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+</script>
+</body>
+</html>
